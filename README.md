@@ -1,3 +1,6 @@
+To run the application go to the folder where main.jsx folder exist and run below command
+>npm run dev
+
 # React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
