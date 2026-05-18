@@ -51,6 +51,50 @@ body {
   width: 100%;
 }
 
+.login-feedback {
+  margin-bottom: 16px;
+  padding: 10px 12px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.login-feedback.info {
+  color: #1f4b8b;
+  background: #deebff;
+  border: 1px solid #b8d4ff;
+}
+
+.login-feedback.success {
+  color: #155724;
+  background: #d4edda;
+  border: 1px solid #c3e6cb;
+}
+
+.login-feedback.error {
+  color: #721c24;
+  background: #f8d7da;
+  border: 1px solid #f5c6cb;
+}
+
+.refresh-btn {
+  display: block;
+  margin-top: 10px;
+  padding: 8px 16px;
+  background: #28a745;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.refresh-btn:hover {
+  background: #218838;
+}
+
 .input-group {
   margin-bottom: 20px;
   text-align: left;

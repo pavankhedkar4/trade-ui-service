@@ -3,6 +3,7 @@ import Homepage from "./pages/Homepage";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import UpstockUser from "./pages/UpstockUser";
+import UpstockHomepage from "./pages/UpstockHomepage";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
         <Route path="/upstock-user" element={<UpstockUser />} />
+        <Route path="/upstock-homepage" element={<UpstockHomepage />} />
       </Routes>
     </Router>
   );

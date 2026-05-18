@@ -1,14 +1,22 @@
 body {
   margin: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   background-color: #ffffff;
   color: #333;
 }
 
 /* HOMEPAGE CONTAINER */
 .homepage {
+  display: flex;
+  flex-direction: column;
   min-height: 100vh;
+  width: 100%;
+  max-width: 100%;
   background-color: #ffffff;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  overflow-x: hidden;
 }
 
 /* NAVBAR */
@@ -58,7 +66,9 @@ body {
   border-radius: 6px;
   font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
+  transition:
+    background-color 0.3s ease,
+    transform 0.2s ease;
 }
 
 .signup button:hover {
@@ -69,7 +79,14 @@ body {
 /* CONTENT AREA */
 .content {
   display: flex;
-  height: calc(100vh - 80px);
+  flex: 1;
+  width: 100%;
+  max-height: calc(100vh - 80px);
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  overflow: auto;
 }
 
 /* LEFT SIDE (2/3) */
@@ -119,6 +136,50 @@ body {
   border: 1px solid #e9ecef;
 }
 
+.login-feedback {
+  margin-bottom: 16px;
+  padding: 10px 12px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.login-feedback.info {
+  color: #1f4b8b;
+  background: #deebff;
+  border: 1px solid #b8d4ff;
+}
+
+.login-feedback.success {
+  color: #155724;
+  background: #d4edda;
+  border: 1px solid #c3e6cb;
+}
+
+.login-feedback.error {
+  color: #721c24;
+  background: #f8d7da;
+  border: 1px solid #f5c6cb;
+}
+
+.refresh-btn {
+  display: block;
+  margin-top: 10px;
+  padding: 8px 16px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.refresh-btn:hover {
+  background: #0056b3;
+}
+
 .login-box h2 {
   text-align: center;
   color: #2c3e50;
@@ -134,7 +195,9 @@ body {
   border-radius: 6px;
   font-size: 16px;
   margin-bottom: 20px;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
   background: white;
   outline: none;
   box-sizing: border-box;
@@ -160,7 +223,9 @@ body {
   font-size: 16px;
   font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
+  transition:
+    background-color 0.3s ease,
+    transform 0.2s ease;
   margin-top: 10px;
   font-family: inherit;
 }
@@ -214,5 +279,4 @@ body {
   .login-box {
     padding: 30px 20px;
   }
-}
 }
