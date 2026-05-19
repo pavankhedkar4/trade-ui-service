@@ -180,6 +180,89 @@ export const getAccessCode = async (authToken) => {
   }
 };
 
+const extractField = (data, keys) => {
+  if (!data) return null;
+  if (typeof data === "string") return data.trim() || null;
+  if (typeof data === "object") {
+    for (const key of keys) {
+      if (typeof data[key] === "string" && data[key].trim()) {
+        return data[key].trim();
+      }
+    }
+    if (typeof data.data === "object") {
+      return extractField(data.data, keys);
+    }
+  }
+  return null;
+};
+
+export const getUpstockToken = async (accessCode, authToken) => {
+  if (!accessCode) {
+    throw new Error("Missing access code for upstock token request.");
+  }
+
+  if (!authToken) {
+    throw new Error("Missing auth token for upstock token request.");
+  }
+
+  try {
+    const response = await axios.post(
+      `${API_BASE_URL}/client/get-token`,
+      null,
+      {
+        params: { code: accessCode, clientCode: "upstock" },
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: `Bearer ${authToken}`,
+        },
+        withCredentials: false,
+      },
+    );
+
+    const payload = response.data;
+    const upstockToken = extractField(payload, [
+      "upstockToken",
+      "upstock_token",
+      "access_token",
+      "token",
+      "accessToken",
+      "authToken",
+    ]);
+    const upstockExtendedToken = extractField(payload, [
+      "upstockExtendedToken",
+      "upstock_extended_token",
+      "extended_token",
+      "extendedToken",
+      "refreshToken",
+      "extended",
+    ]);
+
+    const normalizedPayload = {
+      ...payload,
+      upstockToken,
+      upstockExtendedToken,
+    };
+
+    return {
+      upstockToken,
+      upstockExtendedToken,
+      payload: normalizedPayload,
+    };
+  } catch (error) {
+    console.error("Get upstock token error:", error);
+    console.error("Error response:", error.response);
+
+    if (!error.response) {
+      throw new Error("Unable to retrieve upstock token");
+    }
+
+    throw new Error(
+      error.response?.data?.message || "Unable to retrieve upstock token",
+    );
+  }
+};
+
 export const signupUser = async (formData) => {
   try {
     console.log("Making signup request to:", `${API_BASE_URL}/login/save-user`);

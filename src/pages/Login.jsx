@@ -4,6 +4,7 @@ import {
   loginUser,
   validateClient,
   getAccessCode,
+  getUpstockToken,
 } from "../services/authService";
 import axios from "axios";
 import "./Login.css";
@@ -38,7 +39,26 @@ function Login() {
         return;
       }
 
-      navigate("/upstock-homepage");
+      const tokenResponse = await getUpstockToken(accessCode, authToken);
+      const { upstockToken, upstockExtendedToken, payload } = tokenResponse;
+
+      if (!upstockToken) {
+        setFeedbackType("error");
+        setFeedbackMessage("Unable to retrieve upstock token from server.");
+        return;
+      }
+
+      localStorage.setItem("upstockToken", upstockToken);
+      if (upstockExtendedToken) {
+        localStorage.setItem("upstockExtendedToken", upstockExtendedToken);
+      }
+      localStorage.setItem("upstockData", JSON.stringify(payload));
+
+      navigate("/upstock-homepage", {
+        state: {
+          upstockData: payload,
+        },
+      });
     } catch (error) {
       setFeedbackType("error");
       setFeedbackMessage(
