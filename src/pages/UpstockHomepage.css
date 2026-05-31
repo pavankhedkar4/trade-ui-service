@@ -12,67 +12,152 @@
     sans-serif;
 }
 
-.upstock-page__hero {
-  max-width: 900px;
+.upstock-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  max-width: 1400px;
   margin: 0 auto 32px;
-  text-align: center;
-}
-
-.upstock-page__hero h1 {
-  margin-bottom: 12px;
-  font-size: clamp(2rem, 2.6vw, 3rem);
-  letter-spacing: -0.03em;
-}
-
-.upstock-page__hero p {
-  margin: 0;
-  color: #5d6372;
-  font-size: 1rem;
-  line-height: 1.8;
-}
-
-.upstock-page__content {
-  display: grid;
   gap: 24px;
-  max-width: 1000px;
-  margin: 0 auto;
 }
 
-.upstock-card {
-  background: #ffffff;
-  border: 1px solid rgba(14, 21, 49, 0.08);
-  border-radius: 20px;
-  box-shadow: 0 20px 50px rgba(34, 45, 78, 0.08);
-  padding: 24px;
+.upstock-header h1 {
+  margin: 0 0 8px;
+  font-size: 2rem;
+  color: #111827;
 }
 
-.upstock-card h2 {
-  margin: 0 0 16px;
+.upstock-header p {
+  margin: 0;
+  color: #6b7280;
+  font-size: 0.95rem;
+}
+
+.upstock-action-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #2563eb;
+  text-decoration: none;
+  font-weight: 600;
+  padding: 10px 18px;
+  border-radius: 10px;
+  border: 1px solid rgba(37, 99, 235, 0.16);
+  transition: background 0.2s ease;
+}
+
+.upstock-action-link:hover {
+  background: rgba(37, 99, 235, 0.08);
+}
+
+.upstock-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  max-width: 1400px;
+  margin: 0 auto 28px;
+}
+
+.upstock-summary-card {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 10px 30px rgba(34, 45, 78, 0.06);
+}
+
+.summary-label {
+  display: block;
+  color: #6b7280;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.summary-value {
+  display: block;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #111827;
+}
+
+.upstock-section {
+  max-width: 1400px;
+  margin: 0 auto 24px;
+  background: white;
+  border-radius: 16px;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 10px 30px rgba(34, 45, 78, 0.06);
+  overflow: hidden;
+}
+
+.upstock-section-header {
+  padding: 24px 24px 0;
+}
+
+.upstock-section h2 {
+  margin: 0;
   font-size: 1.25rem;
   color: #111827;
 }
 
-.upstock-card dl {
+.upstock-detail-grid {
   display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 16px;
+  padding: 24px;
 }
 
-.upstock-card dt {
-  font-weight: 700;
+.upstock-detail-row {
+  display: grid;
+  gap: 6px;
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 16px;
+}
+
+.upstock-detail-label {
+  font-size: 0.85rem;
+  color: #6b7280;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.upstock-detail-value {
+  font-size: 0.95rem;
   color: #374151;
+  word-break: break-word;
 }
 
-.upstock-card dd {
-  margin: 0;
-  color: #4b5563;
-  white-space: pre-wrap;
+.upstock-tags {
+  display: grid;
+  gap: 18px;
+  padding: 24px;
+}
+
+.upstock-tag-group {
+  display: grid;
+  gap: 12px;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 18px;
+  background: #f9fafb;
+}
+
+.upstock-tag-label {
+  font-size: 0.85rem;
+  color: #6b7280;
+  font-weight: 700;
 }
 
 .upstock-badges {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  margin-top: 8px;
 }
 
 .upstock-badge {
@@ -87,10 +172,15 @@
   font-weight: 600;
 }
 
-.upstock-page__footer {
-  max-width: 1000px;
+.upstock-missing {
+  color: #6b7280;
+  font-size: 0.95rem;
+}
+
+.upstock-footer {
+  max-width: 1400px;
   margin: 0 auto;
-  padding-top: 12px;
+  padding-top: 8px;
 }
 
 .upstock-back-link {
@@ -107,16 +197,31 @@
 }
 
 .upstock-empty {
-  background: #eef2ff;
-  border: 1px dashed #bfd2ff;
+  max-width: 1400px;
+  margin: 0 auto;
+  background: white;
+  border: 1px solid #e5e7eb;
   border-radius: 16px;
-  padding: 24px;
+  padding: 48px;
   text-align: center;
-  color: #475569;
+  color: #6b7280;
 }
 
-@media (min-width: 768px) {
-  .upstock-page__content {
-    grid-template-columns: 1.1fr 0.9fr;
+@media (max-width: 1024px) {
+  .upstock-detail-grid,
+  .upstock-summary-grid {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .upstock-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .upstock-action-link {
+    width: 100%;
+    justify-content: center;
   }
 }

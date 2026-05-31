@@ -298,3 +298,47 @@ export const signupUser = async (formData) => {
     throw new Error(error.response?.data?.message || "Signup failed");
   }
 };
+
+export const getHoldings = async (authToken) => {
+  if (!authToken) {
+    throw new Error("Missing auth token for holdings request.");
+  }
+
+  try {
+    const response = await axios.get(`${API_BASE_URL}/client/holdings`, {
+      params: { clientCode: "upstock" },
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: `Bearer ${authToken}`,
+      },
+      withCredentials: false,
+    });
+
+    console.log("Holdings response:", response.data);
+
+    if (Array.isArray(response.data)) {
+      return response.data;
+    }
+
+    if (
+      response.data?.status === "success" &&
+      Array.isArray(response.data?.data)
+    ) {
+      return response.data.data;
+    }
+
+    throw new Error(response.data?.message || "Unable to fetch holdings data");
+  } catch (error) {
+    console.error("Get holdings error:", error);
+    console.error("Error response:", error.response);
+
+    if (!error.response) {
+      throw new Error("Unable to fetch holdings");
+    }
+
+    throw new Error(
+      error.response?.data?.message || "Unable to fetch holdings",
+    );
+  }
+};

@@ -21,30 +21,6 @@ function UpstockHomepage() {
     return null;
   }, [location.state]);
 
-  const additionalParams = useMemo(() => {
-    if (!upstockData || typeof upstockData !== "object") return [];
-
-    const hiddenKeys = [
-      "upstockToken",
-      "upstockExtendedToken",
-      "access_token",
-      "extended_token",
-      "broker",
-      "email",
-      "exchanges",
-      "is_active",
-      "order_types",
-      "products",
-      "user_id",
-      "user_name",
-      "user_type",
-    ];
-
-    return Object.entries(upstockData).filter(
-      ([key]) => !hiddenKeys.includes(key),
-    );
-  }, [upstockData]);
-
   const profileFields = [
     { label: "Broker", value: upstockData?.broker },
     { label: "Email", value: upstockData?.email },
@@ -83,46 +59,62 @@ function UpstockHomepage() {
 
   return (
     <div className="upstock-page">
-      <div className="upstock-page__hero">
-        <p style={{ marginBottom: "12px", color: "#2563eb", fontWeight: 700 }}>
-          Upstock Account Summary
-        </p>
-        <h1>Welcome to your Upstock dashboard</h1>
-        <p>
-          Your account information is shown below. Tokens are securely stored
-          and not displayed on this page.
-        </p>
+      <div className="upstock-header">
+        <div>
+          <h1>Upstock Dashboard</h1>
+          <p>Manage your account and view portfolio details.</p>
+        </div>
+
+        <Link to="/portfolio" className="upstock-action-link">
+          View Portfolio →
+        </Link>
       </div>
 
-      <div className="upstock-page__content">
-        <section className="upstock-card">
-          <h2>Profile details</h2>
-          {upstockData ? (
-            <dl>
+      {upstockData ? (
+        <>
+          <div className="upstock-summary-grid">
+            <div className="upstock-summary-card">
+              <span className="summary-label">Account</span>
+              <span className="summary-value">
+                {upstockData.user_name || "—"}
+              </span>
+            </div>
+            <div className="upstock-summary-card">
+              <span className="summary-label">Broker</span>
+              <span className="summary-value">{upstockData.broker || "—"}</span>
+            </div>
+            <div className="upstock-summary-card">
+              <span className="summary-label">Status</span>
+              <span className="summary-value">
+                {upstockData.is_active ? "Active" : "Inactive"}
+              </span>
+            </div>
+          </div>
+
+          <div className="upstock-section">
+            <div className="upstock-section-header">
+              <h2>Profile Details</h2>
+            </div>
+            <div className="upstock-detail-grid">
               {profileFields.map(({ label, value }) => (
-                <div key={label}>
-                  <dt>{label}</dt>
-                  <dd>{value || "Not available"}</dd>
+                <div key={label} className="upstock-detail-row">
+                  <span className="upstock-detail-label">{label}</span>
+                  <span className="upstock-detail-value">
+                    {value || "Not available"}
+                  </span>
                 </div>
               ))}
-            </dl>
-          ) : (
-            <div className="upstock-empty">
-              No Upstock data available. Please refresh after login or verify
-              your validation step.
             </div>
-          )}
-        </section>
+          </div>
 
-        <section className="upstock-card">
-          <h2>Trading access</h2>
-          {upstockData ? (
-            <div>
+          <div className="upstock-section">
+            <div className="upstock-section-header">
+              <h2>Trading Access</h2>
+            </div>
+            <div className="upstock-tags">
               {listFields.map(({ label, values }) => (
-                <div key={label} style={{ marginBottom: "18px" }}>
-                  <dt style={{ marginBottom: "10px", color: "#374151" }}>
-                    {label}
-                  </dt>
+                <div key={label} className="upstock-tag-group">
+                  <span className="upstock-tag-label">{label}</span>
                   <div className="upstock-badges">
                     {values.length > 0 ? (
                       values.map((value) => (
@@ -134,45 +126,19 @@ function UpstockHomepage() {
                         </span>
                       ))
                     ) : (
-                      <span style={{ color: "#6b7280" }}>Not available</span>
+                      <span className="upstock-missing">Not available</span>
                     )}
                   </div>
                 </div>
               ))}
             </div>
-          ) : null}
-        </section>
+          </div>
+        </>
+      ) : (
+        <div className="upstock-empty">No Upstock account data available.</div>
+      )}
 
-        <section className="upstock-card">
-          <h2>Additional account metadata</h2>
-          {upstockData && additionalParams.length > 0 ? (
-            <div style={{ display: "grid", gap: "14px" }}>
-              {additionalParams.map(([key, value]) => (
-                <div
-                  key={key}
-                  style={{
-                    border: "1px solid rgba(14, 21, 49, 0.08)",
-                    borderRadius: "14px",
-                    padding: "14px",
-                    background: "#f8fafc",
-                  }}
-                >
-                  <strong>{key}</strong>
-                  <div style={{ marginTop: "8px", color: "#475569" }}>
-                    {typeof value === "object"
-                      ? JSON.stringify(value, null, 2)
-                      : String(value)}
-                  </div>
-                </div>
-              ))}
-            </div>
-          ) : (
-            <div className="upstock-empty">No extra metadata found.</div>
-          )}
-        </section>
-      </div>
-
-      <div className="upstock-page__footer">
+      <div className="upstock-footer">
         <Link to="/login" className="upstock-back-link">
           ← Return to Login
         </Link>
